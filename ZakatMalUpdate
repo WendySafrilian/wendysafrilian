@@ -1,0 +1,100 @@
+package tugas1;
+import java.util.Scanner;
+
+public class ZakatMaal {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.println("=======================================================");
+            System.out.println("        SELAMAT DATANG DI KALKULATOR ZAKAT MAAL");
+            System.out.println("=======================================================");
+            System.out.println("Zakat Maal adalah zakat yang wajib dikeluarkan");
+            System.out.println("sebesar 2.5% dari total harta yang dimiliki apabila");
+            System.out.println("jumlahnya mencapai nisab (85 gram emas atau yang setara).");
+            System.out.println("-------------------------------------------------------");
+            
+            // Menampilkan menu pilihan jenis harta
+            System.out.println("Pilih jenis harta yang akan dizakati:");
+            System.out.println("1. Emas (gram)");
+            System.out.println("2. Perak (gram)");
+            System.out.println("3. Kambing (ekor)");
+            System.out.println("4. Uang (rupiah)");
+            System.out.println("5. Keluar");
+
+            System.out.print("Masukkan pilihan Anda (1-5): ");
+            int choice = scanner.nextInt();
+            
+            // Deklarasi variabel jumlah harta dan nisab
+            double jmlhrt = 0;
+            double nisab = 0;
+            boolean validInput = false;
+            String satuan = ""; // Untuk menyimpan satuan output yang sesuai
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Masukkan jumlah emas Anda (dalam gram): ");
+                    jmlhrt = scanner.nextDouble();
+                    nisab = 85; // Nisab emas adalah 85 gram
+                    validInput = true;
+                    satuan = "gram";
+                    break;
+                case 2:
+                    System.out.print("Masukkan jumlah perak Anda (dalam gram): ");
+                    jmlhrt = scanner.nextDouble();
+                    nisab = 595; // Nisab perak adalah 595 gram
+                    validInput = true;
+                    satuan = "gram";
+                    break;
+                case 3:
+                    System.out.print("Masukkan jumlah kambing Anda (dalam ekor): ");
+                    jmlhrt = scanner.nextDouble();
+                    nisab = 40; // Nisab kambing adalah 40 ekor
+                    validInput = true;
+                    satuan = "ekor";
+                    break;
+                case 4:
+                    System.out.print("Masukkan jumlah uang Anda (dalam Rupiah): ");
+                    jmlhrt = scanner.nextDouble();
+                    // Misalkan nisab uang setara dengan 85 gram emas (harga emas bisa diubah)
+                    System.out.print("Masukkan harga 1 gram emas saat ini (dalam Rupiah): ");
+                    double hargaEmas = scanner.nextDouble();
+                    nisab = 85 * hargaEmas;
+                    validInput = true;
+                    satuan = "rupiah";
+                    break;
+                case 5:
+                    running = false;
+                    System.out.println("Terima kasih telah menggunakan kalkulator zakat maal.");
+                    continue; // Langsung ke iterasi selanjutnya untuk keluar dari loop
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+            }
+
+            if (validInput && jmlhrt > 0) {
+                // Mengecek apakah memenuhi syarat untuk zakat
+                if (jmlhrt >= nisab) {
+                    double prsnzkt = 2.5 / 100;
+                    double hslzkt = jmlhrt * prsnzkt;
+                    System.out.println("--------------------------------------------------");
+                    System.out.printf("Jumlah harta Anda: %.2f %s%n", jmlhrt, satuan);
+                    System.out.printf("Nisab untuk jenis harta ini: %.2f %s%n", nisab, satuan);
+                    System.out.printf("Anda memenuhi syarat untuk berzakat.%n");
+                    System.out.printf("Jumlah zakat yang wajib dibayarkan: %.2f %s%n", hslzkt, satuan);
+                    System.out.println("--------------------------------------------------");
+                } else {
+                    System.out.println("--------------------------------------------------");
+                    System.out.printf("Jumlah harta Anda: %.2f %s%n", jmlhrt, satuan);
+                    System.out.printf("Nisab untuk jenis harta ini: %.2f %s%n", nisab, satuan);
+                    System.out.println("Anda tidak memenuhi syarat untuk berzakat.");
+                    System.out.println("--------------------------------------------------");
+                }
+            } else {
+                System.out.println("Jumlah harta harus lebih dari 0. Silakan coba lagi.");
+            }
+        }
+        
+        scanner.close();
+    }
+}
